@@ -95,8 +95,6 @@ rtk-tx gain                      # 查看 token 节省统计
 rtk-tx gain --history            # 历史统计
 rtk-tx gain --daily              # 按日统计
 rtk-tx gain --all --format json  # JSON 输出
-
-rtk-tx telemetry forget          # 清除本地追踪数据
 ```
 
 统计数据库路径：
@@ -113,14 +111,13 @@ export RTK_TX_DB_PATH="$HOME/.local/share/rtk-tx/history.db"
 | CodeBuddy hook | — | `rtk-tx hook codebuddy` |
 | WorkBuddy hook | — | `rtk-tx hook workbuddy` |
 | CodeBuddy / WorkBuddy init | — | `rtk-tx init --<agent>` |
-| 远程 telemetry | 按 upstream 行为 | 默认禁用 |
+| 远程 telemetry | 按 upstream 行为 | **已移除** |
 
 ## 隐私
 
-- 不编译远程 telemetry endpoint
+- **零遥测**：不包含任何遥测代码，无远程数据上报
 - hook / init 流程不产生网络请求
-- `telemetry forget` 仅处理本地数据
-- 本地 SQLite 保留，用于 `gain` 统计
+- 本地 SQLite 保留，仅用于 `gain` 统计
 
 ## 许可证
 

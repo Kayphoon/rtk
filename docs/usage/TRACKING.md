@@ -544,7 +544,6 @@ let _ = conn.execute(
 ## Security & Privacy
 
 - **Local storage only**: Tracking database never leaves the machine
-- **Remote telemetry disabled**: rtk-tx v1 sends no daily ping and no server erasure requests. Local tracking stays on-device.
 - **User control**: Users can delete `~/.local/share/rtk-tx/history.db` anytime
 - **90-day retention**: Old data automatically purged
 

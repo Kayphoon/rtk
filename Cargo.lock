@@ -738,7 +738,6 @@ dependencies = [
  "colored",
  "dirs",
  "flate2",
- "getrandom 0.4.2",
  "ignore",
  "lazy_static",
  "libc",

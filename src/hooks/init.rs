@@ -293,9 +293,6 @@ pub fn run(
         install_cursor_hooks(verbose)?;
     }
 
-    // Remote telemetry is disabled/absent in rtk-tx v1; init must not prompt
-    // users to opt into network telemetry.
-
     println!();
 
     Ok(())
@@ -383,16 +380,6 @@ fn prompt_user_consent(settings_path: &Path) -> Result<bool> {
 
     let response = line.trim().to_lowercase();
     Ok(response == "y" || response == "yes")
-}
-
-pub fn save_telemetry_consent(accepted: bool) -> Result<()> {
-    let mut config = crate::core::config::Config::load().unwrap_or_default();
-    config.telemetry.consent_given = Some(accepted);
-    config.telemetry.enabled = accepted;
-    config.telemetry.consent_date = Some(chrono::Utc::now().to_rfc3339());
-    config
-        .save()
-        .context("Failed to save telemetry consent to config.toml")
 }
 
 fn print_manual_instructions(hook_command: &str, include_opencode: bool) {

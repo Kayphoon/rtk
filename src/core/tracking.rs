@@ -960,7 +960,7 @@ impl Tracker {
         Ok(rows.collect::<Result<Vec<_>, _>>()?)
     }
 
-    /// Count commands since a given timestamp (local analytics helper; remote telemetry disabled).
+    /// Count commands since a given timestamp (local analytics helper).
     #[allow(dead_code)]
     pub fn count_commands_since(&self, since: chrono::DateTime<chrono::Utc>) -> Result<i64> {
         let ts = since.format("%Y-%m-%dT%H:%M:%S").to_string();
@@ -972,7 +972,7 @@ impl Tracker {
         Ok(count)
     }
 
-    /// Get top N commands by frequency (local analytics helper; remote telemetry disabled).
+    /// Get top N commands by frequency (local analytics helper).
     #[allow(dead_code)]
     pub fn top_commands(&self, limit: usize) -> Result<Vec<String>> {
         let mut stmt = self.conn.prepare(
@@ -987,7 +987,7 @@ impl Tracker {
         Ok(rows.filter_map(|r| r.ok()).collect())
     }
 
-    /// Get overall savings percentage (local analytics helper; remote telemetry disabled).
+    /// Get overall savings percentage (local analytics helper).
     #[allow(dead_code)]
     pub fn overall_savings_pct(&self) -> Result<f64> {
         let (total_input, total_saved): (i64, i64) = self.conn.query_row(
@@ -1002,7 +1002,7 @@ impl Tracker {
         }
     }
 
-    /// Get total tokens saved across all tracked commands (local analytics helper; remote telemetry disabled).
+    /// Get total tokens saved across all tracked commands (local analytics helper).
     #[allow(dead_code)]
     pub fn total_tokens_saved(&self) -> Result<i64> {
         let saved: i64 = self.conn.query_row(
@@ -1013,7 +1013,7 @@ impl Tracker {
         Ok(saved)
     }
 
-    /// Get tokens saved in the last 24 hours (local analytics helper; remote telemetry disabled).
+    /// Get tokens saved in the last 24 hours (local analytics helper).
     #[allow(dead_code)]
     pub fn tokens_saved_24h(&self, since: chrono::DateTime<chrono::Utc>) -> Result<i64> {
         let ts = since.format("%Y-%m-%dT%H:%M:%S").to_string();
@@ -1026,7 +1026,7 @@ impl Tracker {
     }
 
     /// Top N passthrough commands (0% savings) — commands missing a filter.
-    /// Groups by first word only; remote telemetry is disabled.
+    /// Groups by first word only.
     #[allow(dead_code)]
     pub fn top_passthrough(&self, limit: usize) -> Result<Vec<(String, i64)>> {
         let mut stmt = self.conn.prepare(

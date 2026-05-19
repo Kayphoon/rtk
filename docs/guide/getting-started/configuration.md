@@ -44,14 +44,9 @@ mode = "failures"           # "failures" (default), "always", "never"
 max_files = 20              # rotation: keep last N files
 # directory = "/custom/tee/path"  # optional override
 
-[telemetry]
-enabled = false             # remote telemetry is disabled/absent in rtk-tx v1
-
 [hooks]
 exclude_commands = []       # commands to never auto-rewrite
 ```
-
-For full details on what is collected, opt-out options, and GDPR rights, see [Telemetry & Privacy](../resources/telemetry.md).
 
 ## Environment variables
 
@@ -60,7 +55,6 @@ For full details on what is collected, opt-out options, and GDPR rights, see [Te
 | `RTK_DISABLED=1` | Disable RTK for a single command (`RTK_DISABLED=1 git status`) |
 | `RTK_TX_DB_PATH` | Override the local SQLite tracking database path |
 | `RTK_TEE_DIR` | Override the tee directory |
-| `RTK_TELEMETRY_DISABLED=1` | Harmless explicit telemetry block; remote telemetry is already disabled |
 | `RTK_HOOK_AUDIT=1` | Enable hook audit logging |
 | `SKIP_ENV_VALIDATION=1` | Skip env validation (useful with Next.js) |
 
@@ -123,21 +117,6 @@ CodeBuddy Code setup uses its own settings files:
 Install with `rtk-tx init --codebuddy` for project scope or `rtk-tx init -g --codebuddy` for global scope. The inserted hook uses `hooks.PreToolUse`, matcher `Bash`, command `rtk-tx hook codebuddy`, and returns rewrites through `hookSpecificOutput.updatedInput.command` (for example, `rtk-tx rewrite "git status"` → `rtk-tx git status`).
 
 `rtk-tx` v1 does **not** patch `.codebuddy/settings.local.json`. After external settings changes, CodeBuddy may require review/approval in its `/hooks` panel.
-
-## Telemetry
-
-rtk-tx v1 sends no remote telemetry. Local SQLite tracking for `rtk-tx gain` stays on-device.
-
-To set an explicit block or disable local consent state:
-
-```bash
-# Via environment variable
-export RTK_TELEMETRY_DISABLED=1
-
-# Via config.toml
-[telemetry]
-enabled = false
-```
 
 ## Per-project filters
 

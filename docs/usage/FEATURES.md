@@ -1323,11 +1323,6 @@ mode = "failures"           # "failures" (defaut), "always", ou "never"
 max_files = 20              # Rotation : garder les N derniers fichiers
 # directory = "/custom/tee/path"  # Chemin personnalise (optionnel)
 
-[telemetry]
-enabled = false             # Telemetrie distante desactivee/absente dans rtk-tx v1
-# consent_given = false     # Etat local uniquement
-# consent_date = "..."      # Date du consentement (RFC 3339)
-
 [hooks]
 exclude_commands = []       # Commandes a exclure de la recriture automatique
 ```
@@ -1338,7 +1333,6 @@ exclude_commands = []       # Commandes a exclure de la recriture automatique
 |----------|-------------|
 | `RTK_TX_DB_PATH` | Surcharge le chemin de la base SQLite locale |
 | `RTK_TEE_DIR` | Surcharge le repertoire tee |
-| `RTK_TELEMETRY_DISABLED=1` | Blocage explicite; la telemetrie distante est deja desactivee |
 | `RTK_HOOK_AUDIT=1` | Activer l'audit du hook |
 | `SKIP_ENV_VALIDATION=1` | Desactiver la validation d'env (Next.js, etc.) |
 
@@ -1373,26 +1367,6 @@ FAILED: 2/15 tests
 | Taille max fichier | 1 Mo | Troncature au-dela |
 
 ---
-
-## Telemetrie
-
-rtk-tx v1 n'envoie pas de telemetrie distante. Aucun ping quotidien, aucun endpoint de telemetrie et aucune demande d'effacement serveur ne sont utilises. Le tracking SQLite local pour `rtk-tx gain` reste disponible sur la machine.
-
-**Gerer la telemetrie :**
-```bash
-rtk-tx telemetry status     # Voir l'etat local
-rtk-tx telemetry enable     # La telemetrie distante reste desactivee/absente
-rtk-tx telemetry disable    # Enregistrer l'etat desactive localement
-rtk-tx telemetry forget     # Supprimer sel/marqueur/base locale uniquement
-```
-
-**Desactiver via variable d'environnement :**
-```bash
-export RTK_TELEMETRY_DISABLED=1
-export RTK_TX_DB_PATH=/custom/path/history.db
-```
-
-Aucune donnee personnelle, aucun contenu de commande, aucun chemin de fichier, aucune metrique d'usage et aucun hash de device ne sont transmis. Details : [docs/TELEMETRY.md](../TELEMETRY.md)
 
 ---
 
